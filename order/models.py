@@ -4,21 +4,23 @@ from django.db import models
 
 # Create your models here.
 
-class BaseMixin(models): 
+class BaseMixin(models.Model): 
     
     create_at = models.DateTimeField(auto_now=True)
 
     update_at = models.DateTimeField(auto_now_add=True)
     
     creator = models.ForeignKey(User)
+    
+    class Meta:
+        abstract = True
 
-
-class Order(models):
-
+class Order(BaseMixin):
+    name = models.CharField(max_length=254)
     expirate_at = models.DateTimeField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to='asset/%Y/%M/', null=True)
 
-class Fee(models):
+class Fee(BaseMixin):
 
     order = models.ForeignKey(Order)
     description = models.CharField(max_length=254)

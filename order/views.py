@@ -2,17 +2,10 @@ import datetime
 
 from django.shortcuts import render
 
-from models import Order, Fee
 # Create your views here.
 
-def index(request):
 
-   today = datetime.datetime.today()
-
-   orders = Order.objects.filter(expirate_at__gt=today)
-
-   return render(request, 'index.html', locals())
-
+from models import Order, Fee
 
 def create_order(request):
 
