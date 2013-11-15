@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.12.181']
 
 
 # Application definition
@@ -83,3 +83,6 @@ USE_TZ = True
 STATIC_URL = r'/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 TEMPLATE_DIRS = (  os.path.join(BASE_DIR, 'templates') ,)
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'asset')
+MEDIA_URL = r'/asset/'
+

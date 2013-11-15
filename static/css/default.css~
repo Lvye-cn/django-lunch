@@ -1,0 +1,19 @@
+*{font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;}
+body{background:url(../images/bg.jpg);}
+body#main {padding:0;margin:0;}
+.container{
+width: auto;
+margin-right: 100px;
+margin-left: 325px;
+}
+.main.container{
+    padding: 45px 0px 0px;
+    width: auto;
+    margin-right: 50px;
+    margin-left: 122px;
+}
+.po-content {padding:64px 0;}
+.add-item{height:100%;}
+#album-app{padding:10px;}
+#album-app .item{min-height:200px}
+#add-photo{border:2px dashed #ccc;}

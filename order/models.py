@@ -17,8 +17,9 @@ class BaseMixin(models.Model):
 
 class Order(BaseMixin):
     name = models.CharField(max_length=254)
+    description = models.CharField(max_length=254)
     expirate_at = models.DateTimeField()
-    image = models.ImageField(upload_to='asset/%Y/%M/', null=True)
+    image = models.ImageField(upload_to='image/%Y/%M/', null=True)
 
 class Fee(BaseMixin):
 

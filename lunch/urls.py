@@ -10,6 +10,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^logout/$', 'lunch.views.logout_user', name='logout'),
     url(r'^login/$', 'lunch.views.login_user', name='login'),
+    url(r'^register/$', 'lunch.views.register_user', name='register'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^order/', include('order.urls')),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^fee/', include('order.fee_urls')),
+) + static(settings.STATIC_URL, 
+          document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

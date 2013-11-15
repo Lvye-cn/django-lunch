@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ui stackable items">
+{% for order in orders %}
+<div class="item order" data-order="{{order.id}}" >
+        <div class="image ">
+            <img class="thumbnail" src="/asset/{{ order.image|default:"static/images/default.png" }}" data-target='{{order.id}}' />
+            <div class="ui modal" id='modal-order-{{order.id}}'>
+                <i class="close icon"></i>
+                <img src="/asset/{{ order.image|default:"static/images/default.png" }}" class="large-image" />
+            </div>
+        </div>
+        <div class="content">
+            <div class="meta">
+                <i class="time icon"></i>{{ order.expirate_at|date:"H:i"}}
+            </div>
+            <div class="name">{{order.name }}</div>
+            <div class='description'>
+                <p>由{{order.creator.username}}发起</p>
+                <div class="ui horizontal icon divider">
+                      <i class="circular heart icon"></i>
+                  </div>
+                <p>{{order.description}}</p>
+            </div>
+            <table class="ui table segment">
+                 <thead>
+                         <tr><th>姓名</th>
+                                 <th>菜名</th>
+                                     <th>价格</th>
+                                       </tr></thead>
+            <tbody>
+            {% for fee in order.fee_set.all %}
+            <tr data-fee="{{fee.id}}" data-description="{{fee.description}}" data-price="{{fee.price}}"> 
+                <td class='username'>{{fee.creator.username}}
+                </td>
+                <td >{{fee.description}}</td>
+                <td>{{fee.price}}{% if fee.creator == user %}
+                    <i class="remove red icon delete" data-content="我不想吃这个了"></i>
+                    {% else %}
+                     <i class="fork code green icon" data-content="我也想吃这个！"></i>   
+                    {% endif %}
+                </td> 
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr><th>统计</th>
+                    <th>{{order.fee_set.count}} 人</th>
+                    <th>{{order.total_price}} 元</th></tr>
+            </tfoot>
+            </table>
+{% if user.is_authenticated %}
+            <form class="add-fee">
+                <div class="ui fluid small form segment">
+  <div class="two fields">
+    <div class="field">
+      <label>菜名</label>
+      <input placeholder="菜名" type="text" name='description'>
+    </div>
+    <div class="field">
+      <label>价格</label>
+      <input placeholder="价格" type="text" name='price'>
+    </div>
+  </div>
+                    <div class="ui green submit button">吃这个了</div>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+      </div>
+{% endfor %}
+{% if user.is_authenticated %}
+<div class="item">
+    <h2 class="ui header">
+        我想帮定外卖
+        </h2>
+        <form method="POST" enctype="multipart/form-data" action="/order/create/" class='ui form'>
+        {% csrf_token %}
+        <div class="field">
+            <label>菜单图片</label>
+            <input type='file' name='image' />
+        </div>
+        <div class="field">
+            <label>订餐名</label>
+            <div class="ui left icon input">
+            <input type='text' name='name' placeholder='餐馆名神马的也好' />
+            <i class='food icon'></i>
+        </div>
+        </div>
+        <div class="field">
+            <label>介绍</label>
+            <div class="ui left icon input">
+            <input type='text' name='description' placeholder='简单介绍一下' />
+            <i class="list icon"></i>
+        </div>
+        </div>
+        <div class="field">
+        <label>截至时间</label>
+            <div class="ui left icon input">
+          <input type="time" name="expirate_at" />
+          <i class="time icon"></i>
+          </div> 
+        </div>
+        <div class="ui buttons">
+            <input type='submit' class="ui positive small button"  value='就这样' />
+                <div class="or"></div>
+                <input type='reset' class="ui small button" value="填错了" />
+      </div>
+    </form>
+</div>
+</div>
+{% endif %}
+{% endblock %}

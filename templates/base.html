@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+{% block css %}
+<link rel="stylesheet" href="{% static "css/semantic.min.css"%}">
+<link rel="stylesheet" href="{% static "css/default.css"%}">
+{% endblock %}
+{% block custom_head %}
+{% endblock %}
+</head>
+<body>
+{% block content_head %}
+<div class="ui small modal" id='login_modal'>
+  <i class="close icon"></i>
+  <div class="header">
+   登入帐号
+  </div>
+  <div class="content">
+<form>
+ <div class="ui fluid form segment">
+          <div class="field">
+            <label>用户名</label>
+            <input placeholder="用户名" type="text" name='username'>
+          </div>
+          <div class="field">
+            <label>密码</label>
+            <input type="password" name='password'>
+          </div>
+        </div> 
+  <div class="actions">
+    <div class="ui button">取消</div>
+    <div class="ui positive right labeled icon button" id='submit'>
+        就这样吧
+    <i class="sign in icon"></i>
+  </div>
+</form>
+</div>
+</div>
+<div class="ui small modal" id='register_modal'>
+  <i class="close icon"></i>
+  <div class="header">
+   注册帐号
+  </div>
+<div class="content">
+<form>
+<div class="ui fluid form segment">
+          <div class="field">
+            <label>用户名</label>
+            <input placeholder="用户名" type="text" name='username'>
+          </div>
+          <div class="field">
+            <label>邮箱</label>
+            <input placeholder="邮箱" type="email" name='email'>
+          </div>
+          <div class="field">
+            <label>密码</label>
+            <input type="password" name='password'>
+          </div>
+</div> 
+</form>
+  </div>
+  <div class="actions">
+    <div class="ui button">取消</div>
+    <div class="ui positive right labeled icon button" id='submit'>
+        就这样吧
+    <i class="add icon"></i>
+  </div>
+</div>
+</div>
+  </div>
+<div class="ui green inverted fixed transparent  main menu">
+        <div class="container">
+            <a class="launch item"><i class="icon leaf layout"></i>绿野订餐</a>
+          <div class="title item">
+          {% now "m月d日" %}
+          </div>
+    <div class="right menu">
+        {% if user.is_authenticated %}
+        <div class="item">{{ user.username }}</div>
+        <div class='item clickable' id='logout'>登出</div>
+        {% else %}
+        <div class='item clickable' id='login'>登入</div>
+        <div class='item clickable' id='register'>注册</div>
+        {% endif %}
+    </div>
+          </div>
+</div>
+</div>
+{% endblock %}
+<div id='main'>
+{% block content %}
+{% endblock %}
+</div>
+{% block scripts %}
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/semantic.min.js" %}"></script>
+<script src="{% static "js/default.js" %}"></script>
+{% endblock %}
+</body>
+</html>
